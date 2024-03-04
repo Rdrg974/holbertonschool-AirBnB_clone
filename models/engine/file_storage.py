@@ -5,8 +5,9 @@ import json
 
 class FileStorage:
     """File storage class."""
-    __file_path = "file.json"
-    __objects = {}
+    def __init__(self):
+        self.__file_path = "file.json"
+        self.__objects = {}
 
     def all(self):
         """all method
@@ -20,9 +21,11 @@ class FileStorage:
 
     def save(self):
         """save method"""
-        new_dict = {obj: self.__objects[obj].to_dict() for obj in self.__objects}
-        with open(self.__file_path, 'w') as f:
-            json.dump(new_dict, f)
+        serialized_objects = {}
+        for key, value in self.__objects.items():
+            serialized_objects[key] = value.to_dict()
+        with open(self.__file_path, 'w') as file:
+            json.dump(serialized_objects, file)
 
     def reload(self):
         """reload method"""
