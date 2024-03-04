@@ -8,7 +8,7 @@ class BaseModel:
     """BaseModel class"""
     def __init__(self):
         """__init__ method"""
-        self.id = uuid.uuid4()
+        self.id = str(uuid.uuid4())
         self.created_at = datetime.datetime.utcnow()
         self.updated_at = datetime.datetime.utcnow()  
     
@@ -24,7 +24,7 @@ class BaseModel:
         """to_dict method"""
         new_dict = self.__dict__.copy()
         new_dict['__class__'] = self.__class__.__name__
-        new_dict['id'] = "{}".format(self.id)
+        new_dict['id'] = self.id
         new_dict['created_at'] = self.created_at.isoformat()
         new_dict['updated_at'] = self.updated_at.isoformat()
         return new_dict
