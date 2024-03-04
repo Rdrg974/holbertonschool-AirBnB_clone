@@ -2,6 +2,7 @@
 """BaseModel class"""
 import uuid
 from datetime import datetime
+from models.engine.file_storage import FileStorage
 
 
 class BaseModel:
@@ -10,18 +11,19 @@ class BaseModel:
         """__init__ method"""
         if len(kwargs) > 0:
             for key, value in kwargs.items():
-                if key is not "__class__":
+                if key != "__class__":
                     setattr(self, key, value)
-                if key is 'id':
+                if key == 'id':
                     self.id = value
-                if key is 'created_at':
+                if key == 'created_at':
                     self.created_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
-                if key is 'updated_at':
+                if key == 'updated_at':
                     self.updated_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
         else:        
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
-            self.updated_at = datetime.utcnow()  
+            self.updated_at = datetime.utcnow()
+            FileStorage().new(self) 
     
     def __str__(self):
         """__str__ method"""
@@ -30,6 +32,7 @@ class BaseModel:
     def save(self):
         """save method"""
         self.updated_at = datetime.utcnow()
+        FileStorage().save()
         
     def to_dict(self):
         """to_dict method"""
