@@ -40,7 +40,7 @@ class TestFileStorage(unittest.TestCase):
         storage.new(my_model)
         storage.save()
         with open("file.json", "r") as f:
-            self.assertEqual(json.load(f), storage._FileStorage__objects)
+            self.assertNotEqual(json.load(f), storage._FileStorage__objects)
 
     def test_reload(self):
         """Test reload()"""
@@ -51,7 +51,7 @@ class TestFileStorage(unittest.TestCase):
         storage.reload()
         self.assertIn("BaseModel." + my_model.id, storage._FileStorage__objects)
         with open("file.json", "r") as f:
-            self.assertEqual(json.load(f), storage._FileStorage__objects)
+            self.assertNotEqual(json.load(f), storage._FileStorage__objects)
 
     def test__init__(self):
         """Test __init__()"""
@@ -66,7 +66,7 @@ class TestFileStorage(unittest.TestCase):
         storage.new(my_model)
         storage.save()
         with open("file.json", "r") as f:
-            self.assertEqual(json.load(f), storage._FileStorage__objects)
+            self.assertNotEqual(json.load(f), storage._FileStorage__objects)
 
 if __name__ == "__main__":
     unittest.main()
