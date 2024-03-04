@@ -14,7 +14,6 @@ class HBNBCommand(cmd.Cmd):
         if not arg:
             print("** class name missing **")
             return
-
         try:
             new_instance = eval(arg)()
             new_instance.save()
@@ -65,14 +64,20 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Print all instances."""
-        if arg and arg not in [cls.__name__ for cls in storage.all().values()]:
-            print("** class doesn't exist **")
-            return
-        if arg:
-            objs = [str(obj) for key, obj in storage.all().items() if key.split('.')[0] == arg]
-        else:
+        if not arg:
             objs = [str(obj) for obj in storage.all().values()]
-        print(objs)
+            print(objs)
+        else:
+            try:
+                class_name = arg.split()[0]
+                if class_name not in storage.all().keys():
+                    print("** class doesn't exist **")
+                    return
+                objs = [str(obj) for key, obj in storage.all().items() if key.split('.')[0] == class_name]
+                print(objs)
+            except IndexError:
+                print("** instance id missing **")
+
 
     def do_update(self, arg):
         """Updates an instance."""
@@ -101,13 +106,14 @@ class HBNBCommand(cmd.Cmd):
 
         attr_name = args[2]
         attr_value = args[3]
-        obj = storage.all()[key]
+        if attr_name in ["id", "created_at", "updated_at"]:
+            return
         try:
             attr_value = eval(attr_value)
         except (NameError, SyntaxError):
             pass
-        setattr(obj, attr_name, attr_value)
-        obj.save()
+        setattr(storage.all()[key], attr_name, attr_value)
+        storage.save()
 
     def do_quit(self, arg):
         """Quit command to exit the program."""
