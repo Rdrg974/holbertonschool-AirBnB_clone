@@ -20,7 +20,7 @@ class TestBaseModel(unittest.TestCase):
         my_model.name = "My First Model"
         my_model.my_number = 89
         my_model_json = my_model.to_dict()
-        self.assertNotEqual(my_model_json["id"], my_model.id)
+        self.assertEqual(my_model_json["id"], my_model.id)
         self.assertEqual(my_model_json["created_at"], my_model.created_at.isoformat())
         
     def test__str__(self):
@@ -34,7 +34,7 @@ class TestBaseModel(unittest.TestCase):
         """Test __init__()"""
         my_model = BaseModel()
         self.assertIsInstance(my_model, BaseModel)
-        self.assertIsInstance(my_model.id, uuid.UUID)
+        self.assertIsInstance(my_model.id, str)
         self.assertIsInstance(my_model.created_at, datetime.datetime)
         self.assertIsInstance(my_model.updated_at, datetime.datetime)
         self.assertEqual(my_model.created_at, my_model.updated_at)

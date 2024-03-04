@@ -17,24 +17,31 @@ class FileStorage:
 
     def new(self, obj):
         """new method"""
-        self.__objects[obj.__class__.__name__ + '.' + obj.id] = obj
+        key = f"{type(obj).__name__}.{obj.id}"
+        self.__objects[key] = obj
 
     def save(self):
         """save method"""
-        serialized_objects = {}
+        obj = {}
         for key, value in self.__objects.items():
-            serialized_objects[key] = value.to_dict()
-        with open(self.__file_path, 'w') as file:
-            json.dump(serialized_objects, file)
+            obj[key] = value.to_dict()
+        with open(self.__file_path, 'w') as f:
+            json.dump(obj, f)
 
     def reload(self):
         """reload method"""
+        from models import base_model
+
+        dict_module = {'BaseModel': base_model}
+
         try:
             with open(self.__file_path, 'r') as f:
-                self.__objects = json.load(f)
-                for value in self.__objects.values():
+                loard_objects = json.load(f)
+                for key, value in loard_objects.items():
                     class_name = value['__class__']
-                    del value['__class__']
-                    self.new(eval(class_name)(**value))
-        except Exception:
+                    if class_name in dict_module:
+                        model_module = dict_module[class_name]
+                        model_class = getattr(model_module, class_name)
+                    self.__objects[key] = model_class(**value)
+        except FileNotFoundError:
             pass
