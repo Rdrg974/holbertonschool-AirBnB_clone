@@ -6,8 +6,14 @@ import unittest
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
+
 class TestFileStorage(unittest.TestCase):
     """Tests File Storage class."""
+    def test_path(self):
+        """Test __file_path"""
+        storage = FileStorage()
+        self.assertEqual(storage._FileStorage__file_path, "file.json")
+
     def test_objects(self):
         """Test __objects"""
         storage = FileStorage()
