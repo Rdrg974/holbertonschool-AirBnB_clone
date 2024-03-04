@@ -1,16 +1,27 @@
 #!/usr/bin/python3
 """BaseModel class"""
 import uuid
-import datetime
+from datetime import datetime
 
 
 class BaseModel:
     """BaseModel class"""
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """__init__ method"""
-        self.id = str(uuid.uuid4())
-        self.created_at = datetime.datetime.utcnow()
-        self.updated_at = datetime.datetime.utcnow()  
+        if len(kwargs) > 0:
+            for key, value in kwargs.items():
+                if key is not "__class__":
+                    setattr(self, key, value)
+                if key is 'id':
+                    self.id = value
+                if key is 'created_at':
+                    self.created_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+                if key is 'updated_at':
+                    self.updated_at = datetime.strptime(value, '%Y-%m-%dT%H:%M:%S.%f')
+        else:        
+            self.id = str(uuid.uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()  
     
     def __str__(self):
         """__str__ method"""
@@ -18,7 +29,7 @@ class BaseModel:
     
     def save(self):
         """save method"""
-        self.updated_at = datetime.datetime.utcnow()
+        self.updated_at = datetime.utcnow()
         
     def to_dict(self):
         """to_dict method"""
