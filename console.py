@@ -8,7 +8,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class."""
     prompt = "(hbnb) "
-    list_module =['BaseModel']
+    list_module =['BaseModel', 'User']
 
     def do_create(self, arg):
         """Create new instance of BaseModel."""
