@@ -48,12 +48,17 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test reload()"""
-        file_storage = FileStorage()
+        file_storage1 = FileStorage()
         my_model = BaseModel()
-        my_model.save()
-        file_storage.reload()
-        new_dict = file_storage.all()
+        file_storage1.new(my_model)
+        file_storage1.save()
+
+        file_storage2 = FileStorage()
+        file_storage2.reload()
+        new_dict = file_storage2.all()
         self.assertIn("BaseModel." + my_model.id, new_dict)
+        self.assertIsInstance(new_dict, dict)
+        self.assertIs(new_dict, file_storage2._FileStorage__objects)
 
 if __name__ == "__main__":
     unittest.main()
