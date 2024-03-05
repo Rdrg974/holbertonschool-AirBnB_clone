@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Console module."""
 import cmd
+from models.user import User
 from models.base_model import BaseModel
 from models import storage
 
@@ -8,7 +9,7 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class."""
     prompt = "(hbnb) "
-    list_module =['BaseModel', 'User']
+    list_module = ['BaseModel', 'User']
 
     def do_create(self, arg):
         """Create new instance of BaseModel."""
