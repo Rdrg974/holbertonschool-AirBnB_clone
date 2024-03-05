@@ -12,17 +12,17 @@ class FileStorage:
         """all method
         Returns:
             [dict]: __objects"""
-        return self.__objects
+        return FileStorage.__objects
 
     def new(self, obj):
         """new method"""
         key = f"{type(obj).__name__}.{obj.id}"
-        self.__objects[key] = obj
+        FileStorage.__objects[key] = obj
 
     def save(self):
         """save method"""
         obj = {}
-        for key, value in self.__objects.items():
+        for key, value in FileStorage.__objects.items():
             obj[key] = value.to_dict()
         with open(self.__file_path, 'w') as f:
             json.dump(obj, f)
@@ -35,7 +35,7 @@ class FileStorage:
         dict_module = {'BaseModel': base_model, 'User': user}
 
         try:
-            with open(self.__file_path, 'r') as f:
+            with open(FileStorage.__file_path, 'r') as f:
                 loard_objects = json.load(f)
                 for key, value in loard_objects.items():
                     class_name = value['__class__']
