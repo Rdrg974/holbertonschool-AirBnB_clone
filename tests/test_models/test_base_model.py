@@ -14,11 +14,12 @@ class TestBaseModel(unittest.TestCase):
         my_model.save()
         self.assertNotEqual(my_model.created_at, my_model.updated_at)
 
-    def test_save2(self):
-        """Test save(self)"""
+    def test_save_updates_file(self):
         my_model = BaseModel()
         my_model.save()
-        self.assertIsInstance(my_model.updated_at, datetime.datetime)
+        bmid = "BaseModel." + my_model.id
+        with open("file.json", "r") as f:
+            self.assertIn(bmid, f.read())
 
     def test_to_dict(self):
         """Test to_dict()"""
