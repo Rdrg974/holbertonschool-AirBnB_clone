@@ -30,10 +30,18 @@ class FileStorage:
 
     def reload(self):
         """reload method"""
-        from models import base_model
         from models import user
+        from models import city
+        from models import state
+        from models import place
+        from models import review
+        from models import amenity
+        from models import base_model
 
-        dict_module = {'BaseModel': base_model, 'User': user}
+        dict_module = {'BaseModel': base_model, 'User': user,
+                       'State': state, 'Place': place,
+                       'City': city, 'Amenity': amenity,
+                       'Review': review}
 
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as f:

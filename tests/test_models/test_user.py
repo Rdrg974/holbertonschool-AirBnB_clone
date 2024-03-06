@@ -5,6 +5,7 @@ import unittest
 from models.user import User
 from models.base_model import BaseModel
 
+
 class TestUser(unittest.TestCase):
     """Test User class."""
     def test_user_email(self):
@@ -26,6 +27,7 @@ class TestUser(unittest.TestCase):
         """Test User.last_name"""
         user = User()
         self.assertNotEqual(user.last_name, None)
+
 
 if __name__ == "__main__":
     unittest.main()
