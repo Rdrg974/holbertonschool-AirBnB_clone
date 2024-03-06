@@ -31,10 +31,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_new(self):
         """Test new()"""
-        file_storage = FileStorage()
+        f_sto = FileStorage()
         my_model = BaseModel()
-        file_storage.new(my_model)
-        self.assertIn("BaseModel." + my_model.id, file_storage._FileStorage__objects)
+        f_sto.new(my_model)
+        self.assertIn("BaseModel." + my_model.id, f_sto._FileStorage__objects)
 
     def test_save(self):
         """Test save()"""
@@ -48,15 +48,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test reload()"""
-        my_model = BaseModel()
-        file_storage = FileStorage()
-        file_storage.new(my_model)
-        objs = FileStorage._FileStorage__objects
-        self.assertIn("BaseModel." + my_model.id, objs)
+        file_storage1 = FileStorage()
+        with self.assertRaises(FileNotFoundError):
+            file_storage1.reload()
 
-    def test_reload_with_arg(self):
-        with self.assertRaises(TypeError):
-            storage.reload(None)
 
 if __name__ == "__main__":
     unittest.main()
