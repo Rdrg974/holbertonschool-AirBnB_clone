@@ -9,7 +9,8 @@ from models import storage
 class HBNBCommand(cmd.Cmd):
     """Command interpreter class."""
     prompt = "(hbnb) "
-    list_module = ['BaseModel', 'User']
+    list_module = ['BaseModel', 'User', 'State',
+                   'Place', 'City', 'Amenity', 'Review']
 
     def do_create(self, arg):
         """Create new instance of BaseModel.
@@ -130,6 +131,7 @@ class HBNBCommand(cmd.Cmd):
     def emptyline(self):
         """Handles empty line."""
         pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
