@@ -125,5 +125,6 @@ class HBNBCommand(cmd.Cmd):
         """Handles empty line."""
         pass
 
+
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
