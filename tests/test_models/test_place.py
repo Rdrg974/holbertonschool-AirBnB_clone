@@ -4,6 +4,7 @@ import unittest
 from models.base_model import BaseModel
 from models.place import Place
 
+
 class TestPlace(unittest.TestCase):
     """Class to test the Place class."""
 
@@ -21,7 +22,17 @@ class TestPlace(unittest.TestCase):
 
     def test_place_has_attributes(self):
         """Test that Place has the required class attributes."""
-        attributes = ["city_id", "user_id", "name", "description", "number_rooms", "number_bathrooms", "max_guest", "price_by_night", "latitude", "longitude", "amenity_ids"]
+        attributes = ["city_id",
+                      "user_id",
+                      "name",
+                      "description",
+                      "number_rooms",
+                      "number_bathrooms",
+                      "max_guest",
+                      "price_by_night",
+                      "latitude",
+                      "longitude",
+                      "amenity_ids"]
         for attr in attributes:
             self.assertTrue(hasattr(Place, attr))
 
