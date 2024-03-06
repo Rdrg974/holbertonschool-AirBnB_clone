@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """Unittest for amenity.py"""
 import unittest
 from models.base_model import BaseModel
