@@ -3,8 +3,8 @@
 import json
 import unittest
 
-
 from models import storage
+from datetime import datetime
 from models.base_model import BaseModel
 from models.engine.file_storage import FileStorage
 
@@ -48,9 +48,10 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test reload()"""
-        file_storage1 = FileStorage()
-        with self.assertRaises(FileNotFoundError):
-            file_storage1.reload()
+        file_storage = FileStorage()
+        file_storage.reload()
+        for value in file_storage.all().values():
+            self.assertIsInstance(value.created_at, datetime)
 
 
 if __name__ == "__main__":
