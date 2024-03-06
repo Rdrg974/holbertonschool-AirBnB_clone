@@ -25,7 +25,7 @@ class FileStorage:
         obj = {}
         for key, value in FileStorage.__objects.items():
             obj[key] = value.to_dict()
-        with open(self.__file_path, 'w') as f:
+        with open(FileStorage.__file_path, 'w') as f:
             json.dump(obj, f)
 
     def reload(self):
@@ -46,9 +46,9 @@ class FileStorage:
         if os.path.exists(FileStorage.__file_path):
             with open(FileStorage.__file_path, 'r') as f:
                 loard_objects = json.load(f)
-                for key, value in loard_objects.items():
-                    class_name = value['__class__']
-                    if class_name in dict_module:
-                        model_module = dict_module[class_name]
-                        model_class = getattr(model_module, class_name)
-                    FileStorage.__objects[key] = model_class(**value)
+            for key, value in loard_objects.items():
+                class_name = value['__class__']
+                if class_name in dict_module:
+                    model_module = dict_module[class_name]
+                    model_class = getattr(model_module, class_name)
+                FileStorage.__objects[key] = model_class(**value)

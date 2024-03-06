@@ -51,7 +51,7 @@ class TestFileStorage(unittest.TestCase):
         self.assertTrue(os.path.exists("file.json"))
         my_model = BaseModel()
         file_storage = FileStorage()
-        file_storage.new(self.model)
+        file_storage.new(my_model)
         file_storage.save()
         file_storage.reload()
         with open("file.json", 'r') as file:
@@ -60,7 +60,7 @@ class TestFileStorage(unittest.TestCase):
         file_storage.save()
         file_storage._FileStorage__objects = {}
         file_storage.reload()
-        self.assertNotEqual(self.storage.all(), {})
+        self.assertNotEqual(file_storage.all(), {})
 
 
 if __name__ == "__main__":
