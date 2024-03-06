@@ -34,14 +34,11 @@ class FileStorage:
 
         dict_module = {'BaseModel': base_model, 'User': user}
 
-        try:
-            with open(FileStorage.__file_path, 'r') as f:
-                loard_objects = json.load(f)
-                for key, value in loard_objects.items():
-                    class_name = value['__class__']
-                    if class_name in dict_module:
-                        model_module = dict_module[class_name]
-                        model_class = getattr(model_module, class_name)
-                    self.__objects[key] = model_class(**value)
-        except FileNotFoundError:
-            pass
+        with open(FileStorage.__file_path, 'r') as f:
+            loard_objects = json.load(f)
+        for key, value in loard_objects.items():
+            class_name = value['__class__']
+            if class_name in dict_module:
+                model_module = dict_module[class_name]
+                model_class = getattr(model_module, class_name)
+        FileStorage.__objects[key] = model_class(**value)
