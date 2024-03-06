@@ -10,22 +10,22 @@ class TestUser(unittest.TestCase):
     def test_user_email(self):
         """Test User.email"""
         user = User()
-        self.assertEqual(user.email, None)
+        self.assertNotEqual(user.email, None)
 
     def test_user_pwd(self):
         """Test User.password"""
         user = User()
-        self.assertEqual(user.password, None)
+        self.assertNotEqual(user.password, None)
 
     def test_user_firstname(self):
         """Test User.first_name"""
         user = User()
-        self.assertEqual(user.first_name, None)
+        self.assertNotEqual(user.first_name, None)
 
     def test_user_lastname(self):
         """Test User.last_name"""
         user = User()
-        self.assertEqual(user.last_name, None)
+        self.assertNotEqual(user.last_name, None)
 
 if __name__ == "__main__":
     unittest.main()

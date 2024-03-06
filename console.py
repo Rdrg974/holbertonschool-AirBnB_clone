@@ -12,7 +12,8 @@ class HBNBCommand(cmd.Cmd):
     list_module = ['BaseModel', 'User']
 
     def do_create(self, arg):
-        """Create new instance of BaseModel."""
+        """Create new instance of BaseModel.
+        """
         if not arg:
             print("** class name missing **")
             return
@@ -24,7 +25,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
     def do_show(self, arg):
-        """Show string representation of instance."""
+        """Show string representation of instance.
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -44,7 +46,8 @@ class HBNBCommand(cmd.Cmd):
         print(storage.all()[key])
 
     def do_destroy(self, arg):
-        """Deletes an instance."""
+        """Deletes an instance.
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -65,7 +68,8 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """Print all instances."""
+        """Print all instances.
+        """
         args = arg.split()
         if not args:
             print([str(obj) for obj in storage.all().values()])
@@ -77,7 +81,8 @@ class HBNBCommand(cmd.Cmd):
                if type(obj).__name__ == args[0]])
 
     def do_update(self, arg):
-        """Updates an instance."""
+        """Updates an instance.
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -119,12 +124,12 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """Handles end of file."""
+        print()
         return True
 
     def emptyline(self):
         """Handles empty line."""
         pass
-
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
