@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """Module for File Storage unittests."""
+import os
 import json
 import unittest
 
@@ -47,18 +48,19 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test reload()"""
-        file_storage1 = FileStorage()
-        My_Model = BaseModel()
-        file_storage1.new(My_Model)
-        file_storage1.save()
+        self.assertTrue(os.path.exists("file.json"))
+        my_model = BaseModel()
+        file_storage = FileStorage()
+        file_storage.new(self.model)
+        file_storage.save()
+        file_storage.reload()
+        with open("file.json", 'r') as file:
+            self.assertIn("BaseModel." + my_model.id, json.load(file))
 
-        file_storage2 = FileStorage()
-        file_storage2._Filestorage__file_path = 'file.json'
-        file_storage2.reload()
-
-        loaded_storage = file_storage2.all()
-        key = "{}.{}".format(My_Model.__class__.__name__, My_Model.id)
-        self.assertIn(key, loaded_storage)
+        file_storage.save()
+        file_storage._FileStorage__objects = {}
+        file_storage.reload()
+        self.assertNotEqual(self.storage.all(), {})
 
 
 if __name__ == "__main__":
