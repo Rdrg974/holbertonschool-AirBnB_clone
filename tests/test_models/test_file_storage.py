@@ -31,7 +31,9 @@ class TestFileStorage(unittest.TestCase):
         storage = FileStorage()
         my_model = BaseModel()
         storage.new(my_model)
-        self.assertIn("BaseModel." + my_model.id, storage._FileStorage__objects)
+        key = "BaseModel." + my_model.id
+        objects = storage._FileStorage__objects
+        self.assertIn(key, objects)
 
     def test_save(self):
         """Test save()"""
@@ -49,7 +51,9 @@ class TestFileStorage(unittest.TestCase):
         storage.new(my_model)
         storage.save()
         storage.reload()
-        self.assertIn("BaseModel." + my_model.id, storage._FileStorage__objects)
+        key = "BaseModel." + my_model.id
+        objects = storage._FileStorage__objects
+        self.assertIn(key, objects)
         with open("file.json", "r") as f:
             self.assertNotEqual(json.load(f), storage._FileStorage__objects)
 
@@ -68,5 +72,5 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             self.assertNotEqual(json.load(f), storage._FileStorage__objects)
 
-if __name__ == "__main__":
-    unittest.main()
+    if __name__ == "__main__":
+        unittest.main()
