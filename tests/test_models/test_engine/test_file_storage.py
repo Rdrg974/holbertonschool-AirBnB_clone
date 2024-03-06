@@ -48,12 +48,9 @@ class TestFileStorage(unittest.TestCase):
 
     def test_reload(self):
         """Test reload()"""
-        try:
-            file_storage = FileStorage()
+        file_storage = FileStorage()
+        with self.assertRaises(FileNotFoundError):
             file_storage.reload()
-            self.assertTrue(True)
-        except:
-            self.assertTrue(False)
 
 
 if __name__ == "__main__":
