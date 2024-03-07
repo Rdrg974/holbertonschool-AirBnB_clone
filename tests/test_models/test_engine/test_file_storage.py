@@ -45,15 +45,6 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as file:
             self.assertIn("BaseModel." + my_model.id, json.load(file))
 
-    def test_exit_file(self):
-        """Test if file exists"""
-        file_storage = FileStorage()
-        my_model = BaseModel()
-        file_storage.new(my_model)
-        file_storage.save()
-        file_storage.reload()
-        self.assertTrue(os.path.exists("file.json"))
-
     def test_reload(self):
         """Test the reload of FileStorage class"""
         file_storage = FileStorage()
