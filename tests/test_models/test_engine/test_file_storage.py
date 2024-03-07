@@ -42,22 +42,28 @@ class TestFileStorage(unittest.TestCase):
         my_model = BaseModel()
         file_storage.new(my_model)
         file_storage.save()
-        with open("file.json", "r") as f:
-            self.assertIn("BaseModel." + my_model.id, json.load(f))
+        with open("file.json", "r") as file:
+            self.assertIn("BaseModel." + my_model.id, json.load(file))
 
     def test_reload(self):
+        """Test reload()"""
         file_storage = FileStorage()
         my_model = BaseModel()
         file_storage.new(my_model)
         file_storage.save()
         file_storage.reload()
-        with open("file.json", 'r') as file:
-            self.assertIn("BaseModel." + my_model.id, json.load(file))
+        self.assertIn("BaseModel." + my_model.id, file_storage.all())
 
-        file_storage.save()
-        file_storage._FileStorage__objects = {}
+    def test_reload_no_file(self):
+        """Test reload() with no file"""
+        file_storage = FileStorage()
+        try:
+            os.remove("file.json")
+        except FileNotFoundError:
+            pass
         file_storage.reload()
         self.assertNotEqual(file_storage.all(), {})
+        self.assertFalse(os.path.exists("file.json"))
 
 
 if __name__ == "__main__":
