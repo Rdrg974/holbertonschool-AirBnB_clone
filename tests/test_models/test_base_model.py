@@ -21,7 +21,7 @@ class TestBaseModel(unittest.TestCase):
         expected = "BaseModel." + my_model.id
         with open("file.json", "r") as f:
             self.assertIn(expected, f.read())
-    
+
     def test_to_dict(self):
         """Test to_dict()"""
         my_model = BaseModel()
