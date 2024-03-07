@@ -47,7 +47,6 @@ class TestFileStorage(unittest.TestCase):
         self.assertIn("BaseModel." + my_model.id, json_dict)
 
     def test_reload(self):
-        """Test reload()"""
         file_storage = FileStorage()
         my_model = BaseModel()
         file_storage.new(my_model)
