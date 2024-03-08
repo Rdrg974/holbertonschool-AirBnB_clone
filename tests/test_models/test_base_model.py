@@ -12,15 +12,12 @@ class TestBaseModel(unittest.TestCase):
     def test_save(self):
         """Test save()"""
         my_model = BaseModel()
+        my_model.name = "First Model"
         my_model.save()
         self.assertNotEqual(my_model.created_at, my_model.updated_at)
 
-    def test_save2(self):
-        my_model = BaseModel()
-        my_model.save()
-        expected = "BaseModel." + my_model.id
-        with open("file.json", "r") as f:
-            self.assertIn(expected, f.read())
+        with open("file.json", "r") as file:
+            self.assertIn(my_model.name, file.read())
 
     def test_to_dict(self):
         """Test to_dict()"""
