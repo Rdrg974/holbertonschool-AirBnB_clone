@@ -1,7 +1,7 @@
 /* Footer style */
 
 footer {
-    background-color: #00FF00;
+    background-color: white;
     height: 60px;
     width: 100%;
     display: flex;
@@ -9,4 +9,5 @@ footer {
     justify-content: center;
     position: fixed;
     bottom: 0;
+    border-top: 1px solid #CCCCCC;
 }
