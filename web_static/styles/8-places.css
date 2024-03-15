@@ -26,7 +26,6 @@
     text-align: center;
     margin: 0px;
     margin-bottom: 33px;
-    position: relative;
 }
 
 .places article .price_by_night {
@@ -36,7 +35,6 @@
     min-width: 60px;
     height: 60px;
     font-size: 30px;
-    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
