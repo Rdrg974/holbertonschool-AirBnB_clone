@@ -35,11 +35,12 @@
     min-width: 60px;
     height: 60px;
     font-size: 30px;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: -80px;
     margin-left: 320px;
+    margin-top: -80px;
 }
 
 .places article .information {
